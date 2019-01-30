@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float speed;
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-    //Called before rendering a frame
-    void Update()
-    {
-
     }
 
     //Called before making any physics calculations
@@ -24,8 +20,19 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 
-        rb.AddForce(movement);
+        rb.AddForce(movement * speed);
 
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Pick Up"))
+        {
+            other.gameObject.SetActive(false);
+        }
+
+    }
+
+
 
 }
